@@ -14,8 +14,7 @@ public class volunteer1 extends AppCompatActivity{
         db = new DatabaseHelper(this);
     }
     public void goToThanks(View v15){
-
-        //SET THE VALUE OF FREE BACK TO N BECAUSE VOLUNTEER IS NOW FREE
+        //Set value of Free back to N as volunteer is free now
         db.updateVFreeY();
         Intent i6 = new Intent(this, thanks.class);
         startActivity(i6);

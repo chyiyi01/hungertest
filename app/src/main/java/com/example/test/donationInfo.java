@@ -18,7 +18,7 @@ public class donationInfo extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.donation_info);
-        db= new DatabaseHelper(this); // initialize the db
+        db= new DatabaseHelper(this); // initialize db
     }
     public void donor2(View v6) {
         name = findViewById(R.id.nameDonor);
@@ -36,7 +36,7 @@ public class donationInfo extends AppCompatActivity{
         Boolean insertTry=db.insertDonor(nameDonor, mobileDonor,addressDonor,typeDonor,quantityDonor); //Insertdonor  function will insert into table
         if (insertTry) {
             Toast.makeText(getApplicationContext(), "Donation Saved", Toast.LENGTH_SHORT).show();
-            Intent i6 = new Intent(this, pickupinfo.class);
+            Intent i6 = new Intent(this, pickupInfo.class);
             startActivity(i6);
         }
     }

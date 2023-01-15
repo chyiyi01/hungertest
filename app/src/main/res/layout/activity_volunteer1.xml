@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#D1C2EC"
     tools:context=".volunteer1">
 
     <Button
@@ -20,7 +21,8 @@
         android:fontFamily="sans-serif-black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox3" />
+        app:layout_constraintTop_toBottomOf="@+id/checkBox3"
+        tools:ignore="UsingOnClickInXml" />
 
     <CheckBox
         android:id="@+id/checkBox"

@@ -1,11 +1,10 @@
 <resources>
-    <string name="app_name">Foodo</string>
+    <string name="app_name">CareFood</string>
     <string name="track_the_volunteer">Track the volunteer</string>
     <string name="enter">Enter</string>
     <string name="quality_check">Quality check</string>
     <string name="amount_verified">Amount Verified</string>
     <string name="submit">Submit</string>
-    <string name="please_enter_current_location">Please enter Current Location</string>
     <string name="reached">Reached</string>
     <string name="address">Address:</string>
     <string name="amount">Amount:</string>
@@ -29,7 +28,6 @@
     <string name="directions">Directions</string>
     <string name="accept">Accept</string>
     <string name="volunteer">Volunteer</string>
-    <string name="about_us">About Us</string>
     <string name="track_volunteer">Track Volunteer</string>
     <string name="textview">TextView</string>
     <string name="prompt_email">Email</string>
@@ -39,5 +37,5 @@
     <string name="not_register">Already Registered?</string>
     <string name="login">Login</string>
     <string name="create_new">Not Registered! Click here to Register</string>
-    <string name="welcome">Welcome to Foodo</string>
+    <string name="welcome">Welcome to CareFood</string>
 </resources>

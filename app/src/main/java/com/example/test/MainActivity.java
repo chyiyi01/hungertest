@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        donate = findViewById(R.id.cardDonate);
         receive = findViewById(R.id.cardReceive);
         volunteer = findViewById(R.id.cardVolunteer);
         logout = findViewById(R.id.cardLogout);
@@ -30,15 +29,6 @@ public class MainActivity extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
-
-        donate.setOnClickListener(new View.OnClickListener ()
-        {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), donationInfo.class);
-                startActivity(intent);
-            }
-        });
         /*receive.setOnClickListener(new View.OnClickListener ()
         {
             @Override
@@ -51,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), volunteer.class);
+                startActivity(intent);
             }
         });
         logout.setOnClickListener(new View.OnClickListener ()

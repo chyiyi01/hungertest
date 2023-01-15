@@ -11,7 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class landingpage extends AppCompatActivity {
 
-    CardView login,register,about;
+    CardView login,register, donate;
     FirebaseAuth fAuth;
 
     @Override
@@ -21,6 +21,7 @@ public class landingpage extends AppCompatActivity {
 
         login = findViewById(R.id.cardLogin);
         register = findViewById(R.id.cardRegister);
+        donate = findViewById(R.id.cardDonate);
 
         fAuth= FirebaseAuth.getInstance();
         if(fAuth.getCurrentUser() !=null){
@@ -40,6 +41,13 @@ public class landingpage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Signup.class));
+            }
+        });
+        donate.setOnClickListener(new View.OnClickListener ()
+        {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), donationInfo.class));
             }
         });
     }

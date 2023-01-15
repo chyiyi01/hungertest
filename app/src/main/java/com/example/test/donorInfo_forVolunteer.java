@@ -22,7 +22,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.List;
 
-public class donorinfo_tovolunteer extends FragmentActivity implements OnMapReadyCallback{
+public class donorInfo_forVolunteer extends FragmentActivity implements OnMapReadyCallback{
     GoogleMap map;
     Button b1;
     DatabaseHelper db;
@@ -34,11 +34,12 @@ public class donorinfo_tovolunteer extends FragmentActivity implements OnMapRead
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_donorinfo_tovolunteer);
+        setContentView(R.layout.activity_donorinfo_forvolunteer);
         db = new DatabaseHelper(this);
         b1 = (Button) findViewById(R.id.button8);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         // To acquire GoogleMap and initialize maps systems and views
+        assert mapFragment != null;
         mapFragment.getMapAsync(this);
 
         t1 = findViewById(R.id.dName);
@@ -48,7 +49,7 @@ public class donorinfo_tovolunteer extends FragmentActivity implements OnMapRead
         myList = db.displayDforV();
         addForMap=myList.get(2).toLowerCase();
         Log.d("data", myList.toString());
-        //Latlong values will be returned from this string address using function defined below
+        //latLong values will be returned from this string address using function defined below
         p1= getLocationFromAddress(addForMap);
         Log.d("lat and long data", p1.toString());
         viewData();
@@ -87,13 +88,13 @@ public class donorinfo_tovolunteer extends FragmentActivity implements OnMapRead
     }
 
     public void volunteer(View v13) {
-        Intent i = new Intent(donorinfo_tovolunteer.this, volunteer2.class);
+        Intent i = new Intent(donorInfo_forVolunteer.this, volunteer2.class);
         startActivity(i);
     }
 
     public LatLng getLocationFromAddress(String strAddress) {
         //Geocoder class is used to handle geocoding and reverse geocoding
-        // geo coding means transforming street address to latitude and longitude
+        //geocoding means transforming street address to latitude and longitude
         Geocoder coder = new Geocoder(this);
         List<Address> address;
         LatLng p1 = null;
@@ -104,13 +105,11 @@ public class donorinfo_tovolunteer extends FragmentActivity implements OnMapRead
             if (address == null) {
                 return null;
             }
-
             //Address class is a class representing an address
             Address location = address.get(0);
             //lat and long values stored into p1 object
             p1 = new LatLng(location.getLatitude(), location.getLongitude() );
         } catch (IOException ex) {
-
             ex.printStackTrace();
         }
         //Return lat long value for address

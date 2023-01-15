@@ -24,7 +24,7 @@ public class volunteer extends AppCompatActivity{
     }
 
     public void volunteer1(View v8) {
-        //Get the location value entered by user
+        //Get the location value where user locates at
         e3 = findViewById(R.id.editText10);
         s3 = e3.getText().toString();
         if (s3.isEmpty()) {
@@ -34,7 +34,7 @@ public class volunteer extends AppCompatActivity{
             db.insertvol(s3);
             Log.d("location added", s3);
 
-            Intent i8 = new Intent(this, donorinfo_tovolunteer.class);
+            Intent i8 = new Intent(this, donorInfo_forVolunteer.class);
             startActivity(i8);
         }
     }

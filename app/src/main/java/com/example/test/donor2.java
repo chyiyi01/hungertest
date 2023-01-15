@@ -32,8 +32,8 @@ public class donor2 extends FragmentActivity implements OnMapReadyCallback {
 
         map = googleMap;
 
-        LatLng Maharashtra = new LatLng(19.157934, 72.993477);
-        map.addMarker(new MarkerOptions().position(Maharashtra).title("Maharashtra"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(Maharashtra));
+        LatLng Penang = new LatLng(5.425300, 100.312386);
+        map.addMarker(new MarkerOptions().position(Penang).title("Penang"));
+        map.moveCamera(CameraUpdateFactory.newLatLng(Penang));
     }
 }

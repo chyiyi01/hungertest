@@ -33,7 +33,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         contentValues.put("email", email);
         contentValues.put("password", password);
         contentValues.put("number",number);
-        contentValues.put("nameVolunteer",name);
+        contentValues.put("name",name);
         //Initially we are no taking a location value from volunteer at registration time so ''
         contentValues.put("vLocation","");
         contentValues.put("free","y");
@@ -43,28 +43,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             return false;
         else
             return true;
-    }
-
-    //check if email already exists;
-    public boolean chkemail(String email) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("Select * from user where email=?", new String[]{email});
-
-        if (cursor.getCount() > 0)
-        {
-            cursor.close();
-            return false;
-        }
-        else
-            return true;
-    }
-
-    //check if email and password match;
-    public boolean emailpassword(String email, String password) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select * from user where email=? and password=?", new String[]{email, password});
-        if (cursor.getCount() > 0) return true;
-        else return false;
     }
 
     public boolean insertDonor(String donor_name, String number, String address, String type, String quantity){
@@ -108,7 +86,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 cursor1.moveToLast();
                 Log.d("data after uVF", cursor1.getString(5));
                 cursor1.close();
-
             }
             else {
                 Log.d("data after uVF fail", "girl no way");
@@ -200,7 +177,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         dbd.close();
     }
     //insert into database volunteers
-    public boolean insertvol( String location) {
+    public boolean insertvol(String location) {
         SQLiteDatabase dbd = this.getWritableDatabase();
         List<String> n1=displayDforV();
         String vEmail=n1.get(3);

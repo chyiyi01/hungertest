@@ -26,92 +26,93 @@ import java.util.Map;
 
 public class Signup extends AppCompatActivity {
     public static final String TAG = "TAG";
-    EditText mFullName,mEmail,mPassword,mPhone;
-    Button mRegisterBtn;
-    TextView mLoginBtn;
+    EditText fullName,edtemail,pwd,phoneno;
+    Button registerBtn;
+    TextView loginBtn;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userID;
+    DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        mFullName = findViewById(R.id.name);
-        mEmail = findViewById(R.id.email);
-        mPassword = findViewById(R.id.password);
-        mPhone = findViewById(R.id.phone);
-        mRegisterBtn=findViewById(R.id.register);
-        mLoginBtn = findViewById(R.id.login);
+        fullName = findViewById(R.id.name);
+        edtemail = findViewById(R.id.email);
+        pwd = findViewById(R.id.password);
+        phoneno = findViewById(R.id.phone);
+        registerBtn=findViewById(R.id.register);
+        loginBtn = findViewById(R.id.login);
 
         fAuth=FirebaseAuth.getInstance();
         fStore=FirebaseFirestore.getInstance();
 
         if(fAuth.getCurrentUser() !=null){
-            //startActivity(new Intent(getApplicationContext(),MainActivity.class));
-            //finish();
             Intent intent = new Intent(Signup.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
 
-        mRegisterBtn.setOnClickListener(new View.OnClickListener ()
+        registerBtn.setOnClickListener(new View.OnClickListener ()
         {
             @Override
             public void onClick(View v)
             {
-                String email = mEmail.getText().toString().trim();
-                String password= mPassword.getText().toString().trim();
-                String name= mFullName.getText().toString().trim();
-                String phone= mPhone.getText().toString().trim();
+                String email = edtemail.getText().toString().trim();
+                String password= pwd.getText().toString().trim();
+                String name= fullName.getText().toString().trim();
+                String phone= phoneno.getText().toString().trim();
 
                 if(TextUtils.isEmpty(email))
                 {
-                    mEmail.setError("Email is Required.");
+                    edtemail.setError("Email is Required.");
                     return;
                 }
                 if(TextUtils.isEmpty(password))
                 {
-                    mPassword.setError("Password is Required.");
+                    pwd.setError("Password is Required.");
                     return;
                 }
                 if(password.length() < 6)
                 {
-                    mPassword.setError("Password Must be >=6 Characters");
+                    pwd.setError("Password Must be >=6 Characters");
                     return;
                 }
-                fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(Signup.this, "User Created.", Toast.LENGTH_SHORT) .show();
-                            userID = fAuth.getCurrentUser().getUid();
-                            DocumentReference documentReference = fStore.collection("users").document(userID);
-                            Map<String,Object> user = new HashMap<>();
-                            user.put("name",name);
-                            user.put("email",email);
-                            user.put("phone",phone);
-                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d(TAG,"onSuccess: user Profile is created for "+ userID);
-                                    Toast.makeText(Signup.this, "Registered Successfully.", Toast.LENGTH_SHORT) .show();
-                                }
-                            });
-                            //startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                            Intent intent = new Intent(Signup.this, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
+                Boolean tryInsert = db.insert(email, password, phone, name);
+                if (tryInsert){
+                    fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(Signup.this, "User Created.", Toast.LENGTH_SHORT) .show();
+                                userID = fAuth.getCurrentUser().getUid();
+                                DocumentReference documentReference = fStore.collection("users").document(userID);
+                                Map<String,Object> user = new HashMap<>();
+                                user.put("name",name);
+                                user.put("email",email);
+                                user.put("phone",phone);
+                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d(TAG,"onSuccess: user Profile is created for "+ userID);
+                                        Toast.makeText(Signup.this, "Registered Successfully.", Toast.LENGTH_SHORT) .show();
+                                    }
+                                });
+                                Intent intent = new Intent(Signup.this, MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+                            else{
+                                Toast.makeText(Signup.this, "Error!" + task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                            }
                         }
-                        else{
-                            Toast.makeText(Signup.this, "Error!" + task.getException().getMessage(),Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                    });
+                }
             }
         });
-        mLoginBtn.setOnClickListener(new View.OnClickListener() {
+        loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Login.class));

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".donorinfo_tovolunteer">
+    tools:context=".donorInfo_forVolunteer">
 
     <TextView
         android:id="@+id/textView8"
@@ -33,13 +33,11 @@
         android:layout_width="88dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
         android:layout_marginTop="36dp"
         android:text="Address:"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
-
 
     <TextView
         android:id="@+id/textView12"
@@ -94,7 +92,8 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        tools:ignore="UsingOnClickInXml" />
 
     <TextView
         android:id="@+id/dName"

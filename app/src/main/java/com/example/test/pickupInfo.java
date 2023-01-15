@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
-public class pickupinfo extends AppCompatActivity {
+public class pickupInfo extends AppCompatActivity {
     TextView nameDisplay, mobileDisplay, locationDisplay;
     DatabaseHelper db;
     List<String> myList;

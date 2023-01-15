@@ -12,7 +12,7 @@ public class thanks extends AppCompatActivity{
         setContentView(R.layout.activity_thanks);
     }
     public void goHome(View v15){
-        Intent i6 = new Intent(this, MainActivity.class);
+        Intent i6 = new Intent(this, landingpage.class);
         startActivity(i6);
     }
 }

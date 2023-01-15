@@ -83,7 +83,7 @@
         android:ems="10"
         android:fontFamily="sans-serif"
         android:hint="@string/mobileDonor"
-        android:inputType="phone"
+        android:inputType="number"
         android:textAlignment="center"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"

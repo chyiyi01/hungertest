@@ -34,6 +34,7 @@ public class volunteer2 extends FragmentActivity implements OnMapReadyCallback{
         setContentView(R.layout.activity_volunteertwo);
         db = new DatabaseHelper(this);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        assert mapFragment != null;
         mapFragment.getMapAsync(this);
 
         //calling database function to get the donation details
@@ -60,15 +61,11 @@ public class volunteer2 extends FragmentActivity implements OnMapReadyCallback{
 
     }
     public void goToV1(View v17){
-
         Intent i6 = new Intent(this, volunteer1.class);
         startActivity(i6);
     }
 
     public LatLng getLocationFromAddress(String strAddress) {
-
-        //Geocoder class is used to handle geocoding and reverse geocoding
-        // geo coding means transforming street address to latitude and longitude
         Geocoder coder = new Geocoder(this);
         List<Address> address;
         LatLng p1 = null;
@@ -79,9 +76,7 @@ public class volunteer2 extends FragmentActivity implements OnMapReadyCallback{
             if (address == null) {
                 return null;
             }
-            //Address class is a class representing an address
             Address location = address.get(0);
-            //lat and long values stored into p1 object
             p1 = new LatLng(location.getLatitude(), location.getLongitude() );
         } catch (IOException ex) {
             ex.printStackTrace();
