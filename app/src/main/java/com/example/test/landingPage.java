@@ -9,9 +9,9 @@ import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class landingpage extends AppCompatActivity {
+public class landingPage extends AppCompatActivity {
 
-    CardView login,register, donate;
+    CardView login,register;
     FirebaseAuth fAuth;
 
     @Override
@@ -21,11 +21,10 @@ public class landingpage extends AppCompatActivity {
 
         login = findViewById(R.id.cardLogin);
         register = findViewById(R.id.cardRegister);
-        donate = findViewById(R.id.cardDonate);
 
         fAuth= FirebaseAuth.getInstance();
         if(fAuth.getCurrentUser() !=null){
-            Intent intent = new Intent(landingpage.this, MainActivity.class);
+            Intent intent = new Intent(landingPage.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
@@ -41,13 +40,6 @@ public class landingpage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Signup.class));
-            }
-        });
-        donate.setOnClickListener(new View.OnClickListener ()
-        {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), donationInfo.class));
             }
         });
     }

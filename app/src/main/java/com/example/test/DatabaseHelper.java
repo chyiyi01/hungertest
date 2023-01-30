@@ -1,6 +1,7 @@
 package com.example.test;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
@@ -17,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("Create table user(email text primary key, password text, number int,nameVolunteer text,vLocation text, free text)"); //registration+login
+        db.execSQL("Create table user(email text primary key, password text, number int,name text,free text)"); //registration+login
         db.execSQL("Create table donor(donor_name text, number int, address text, type text, quantity int, vEmail text)");
     }
     @Override
@@ -26,16 +27,14 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         db.execSQL("drop table if exists donor");
     }
 
-    //insert into database
-    public boolean insert(String email, String password, String number, String name) {
+    public boolean insert(String email, String password, Integer number, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("email", email);
         contentValues.put("password", password);
         contentValues.put("number",number);
         contentValues.put("name",name);
-        //Initially we are no taking a location value from volunteer at registration time so ''
-        contentValues.put("vLocation","");
+        //Initially we are no taking location value at registration time so ''
         contentValues.put("free","y");
 
         long ins = db.insert("user", null, contentValues);
@@ -64,88 +63,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }
     }
 
-    public List<String> displayVforD() //This function will return a list that has Volunteer details stored in it
-    {
-        List<String> data = new ArrayList<>();
-        SQLiteDatabase dbd = this.getReadableDatabase();
-
-        Cursor cursor = dbd.rawQuery("SELECT * FROM user where free='y' ", null);
-        if(cursor.getCount()>0){
-
-            cursor.moveToLast();
-            data.add(cursor.getString(2));
-            data.add(cursor.getString(3));
-            data.add(cursor.getString(4));
-            data.add(cursor.getString(0));
-            Log.d("data before uVF", cursor.getString(0));
-            if(updateVfree(cursor.getString(0))){
-                updateEmail(cursor.getString(0));
-                checkUpdate();
-                String vEmail=cursor.getString(0);
-                Cursor cursor1 = dbd.rawQuery("SELECT * FROM user where TRIM(email)='"+vEmail.trim()+"' ", null);
-                cursor1.moveToLast();
-                Log.d("data after uVF", cursor1.getString(5));
-                cursor1.close();
-            }
-            else {
-                Log.d("data after uVF fail", "girl no way");
-            }
-            cursor.close();
-            return  data;
-        }
-        else {
-            cursor.close();
-            dbd.close();
-            return null;
-        }
-
-    }
-
-    public List<String> displayVforD1() //This function will return a list that has Volunteer details stored in it
-    {
-        List<String> data = new ArrayList<>();
-        SQLiteDatabase dbd = this.getReadableDatabase();
-
-        Cursor cursor = dbd.rawQuery("SELECT * FROM user", null);
-        if(cursor.getCount()>0){
-
-            cursor.moveToLast();
-            data.add(cursor.getString(2));
-            data.add(cursor.getString(3));
-            data.add(cursor.getString(4));
-            data.add(cursor.getString(0));
-            cursor.close();
-            return  data;
-        }
-        else {
-            cursor.close();
-            dbd.close();
-            return null;
-        }
-    }
-
-    public void checkUpdate(){
-        List<String> n1=displayDforV();
-        String vEmail=n1.get(3);
-        if(vEmail!="")
-            Log.d("vemail updated?", vEmail);
-    }
-
-    public boolean updateVfree(String vEmail){
-        SQLiteDatabase dbd=this.getWritableDatabase();
-        String qUpdateFree ="UPDATE user SET free='n' where TRIM(email)='"+vEmail.trim()+"'";
-        dbd.execSQL(qUpdateFree);
-        return true;
-    }
-
-    public boolean updateEmail(String vEmail){
-        SQLiteDatabase dbd=this.getWritableDatabase();
-        List<String> n1=displayDforV();
-        String no1=n1.get(1);
-        String qUpdateEmail= "UPDATE donor SET vEmail='"+vEmail.trim()+"'WHERE TRIM(number)='"+no1.trim()+"'";
-        dbd.execSQL(qUpdateEmail);
-        return true;
-    }
     public List<String> displayDforV() //returns a string with donor details
     {
         List<String> data = new ArrayList<>();
@@ -157,7 +74,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             data.add(cursor.getString(1));
             data.add(cursor.getString(2));
             data.add(cursor.getString(5));
-
             Log.d("data", data.toString());
             return data;
         }
@@ -166,42 +82,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             dbd.close();
             return null;
         }
-    }
-
-    public void checkIfLocUpdated(String vEmail){
-        SQLiteDatabase dbd = this.getReadableDatabase();
-        Cursor cursor1 = dbd.rawQuery("SELECT * FROM user where TRIM(email)='"+vEmail.trim()+"' ", null);
-        cursor1.moveToLast();
-        Log.d("if loc updated?", cursor1.getString(4));
-        cursor1.close();
-        dbd.close();
-    }
-    //insert into database volunteers
-    public boolean insertvol(String location) {
-        SQLiteDatabase dbd = this.getWritableDatabase();
-        List<String> n1=displayDforV();
-        String vEmail=n1.get(3);
-        if(!vEmail.equals("")){
-            Log.d("email pas loc ", vEmail);
-            Log.d("data", location);
-            String query="UPDATE user set vLocation='"+location.trim()+"'WHERE TRIM(email)='"+vEmail.trim()+"'";
-            dbd.execSQL(query);
-            checkIfLocUpdated(vEmail);
-            dbd.close();
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    public String refreshLoc(String name){
-        SQLiteDatabase dbd = this.getReadableDatabase();
-        Cursor cursor1 = dbd.rawQuery("SELECT * FROM user where TRIM(nameVolunteer)='"+name.trim()+"' ", null);
-        cursor1.moveToLast();
-        String loc=cursor1.getString(4);
-        cursor1.close();
-        return loc;
     }
 
     public boolean updateVFreeY(){

@@ -28,15 +28,15 @@ public class donorInfo_forVolunteer extends FragmentActivity implements OnMapRea
     DatabaseHelper db;
     TextView t1, t2, t3;
     List<String> myList;
-    String addForMap;
-    LatLng p1;
+    String addForMap; //To store address that we will receive from donor
+    LatLng p1; //p1 object will store converted latitude and longitude values of donor's address
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_donorinfo_forvolunteer);
         db = new DatabaseHelper(this);
-        b1 = (Button) findViewById(R.id.button8);
+        b1 = findViewById(R.id.button8);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         // To acquire GoogleMap and initialize maps systems and views
         assert mapFragment != null;
@@ -49,7 +49,7 @@ public class donorInfo_forVolunteer extends FragmentActivity implements OnMapRea
         myList = db.displayDforV();
         addForMap=myList.get(2).toLowerCase();
         Log.d("data", myList.toString());
-        //latLong values will be returned from this string address using function defined below
+        //Function that return latitude and longitude values from string address
         p1= getLocationFromAddress(addForMap);
         Log.d("lat and long data", p1.toString());
         viewData();
@@ -75,16 +75,15 @@ public class donorInfo_forVolunteer extends FragmentActivity implements OnMapRea
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        //add marker to the map where donor location will be displayed
+        //add marker to map where donor location will be displayed
         map.addMarker(new MarkerOptions().position(p1).title("Donor's Location"));
         map.moveCamera(CameraUpdateFactory.newLatLng(p1));
 
-        //CameraPosition is a class that aggregates all camera position parameters and build() to construct a camera position instance and animateCamera is used to modify map's camera
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(p1)
-                .zoom(15).build();
-        //Zoom in and animate the camera.
-        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        //CameraPosition is a class that aggregates all camera position parameters
+        // and build() to construct a camera position instance
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(p1).zoom(15).build();
+        //animateCamera is used to modify map's camera
+        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition)); //animateCamera is used to modify map's camera
     }
 
     public void volunteer(View v13) {

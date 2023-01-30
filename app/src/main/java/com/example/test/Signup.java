@@ -38,6 +38,7 @@ public class Signup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        db = new DatabaseHelper(this);
 
         fullName = findViewById(R.id.name);
         edtemail = findViewById(R.id.email);
@@ -63,7 +64,7 @@ public class Signup extends AppCompatActivity {
                 String email = edtemail.getText().toString().trim();
                 String password= pwd.getText().toString().trim();
                 String name= fullName.getText().toString().trim();
-                String phone= phoneno.getText().toString().trim();
+                Integer phone= Integer.valueOf(phoneno.getText().toString().trim());
 
                 if(TextUtils.isEmpty(email))
                 {
@@ -80,7 +81,7 @@ public class Signup extends AppCompatActivity {
                     pwd.setError("Password Must be >=6 Characters");
                     return;
                 }
-                Boolean tryInsert = db.insert(email, password, phone, name);
+                boolean tryInsert = db.insert(email, password, phone, name);
                 if (tryInsert){
                     fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
@@ -109,6 +110,9 @@ public class Signup extends AppCompatActivity {
                             }
                         }
                     });
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Database insert unsuccessful", Toast.LENGTH_SHORT).show();
                 }
             }
         });

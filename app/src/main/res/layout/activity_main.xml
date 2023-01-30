@@ -23,13 +23,39 @@
             android:layout_margin="20dp"/>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardDonate"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="5dp"
+            app:cardBackgroundColor="#793CE4"
+            android:layout_margin="10dp">
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/donate"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="18dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Donate"
+                android:fontFamily="@font/opensans"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:layout_marginTop="130dp"
+                android:layout_gravity="center_horizontal"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/cardReceive"
             android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="5dp"
-            app:cardBackgroundColor="#8957E1"
+            app:cardBackgroundColor="#8852E6"
             android:layout_margin="10dp">
             <ImageView
                 android:layout_width="100dp"
@@ -55,7 +81,7 @@
             android:layout_height="180dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="5dp"
-            app:cardBackgroundColor="#9D78DF"
+            app:cardBackgroundColor="#946CDD"
             android:layout_margin="10dp">
             <ImageView
                 android:layout_width="100dp"
@@ -75,13 +101,39 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardHistory"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="5dp"
+            app:cardBackgroundColor="#AB8BE3"
+            android:layout_margin="10dp">
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/hist"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="18dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="History"
+                android:fontFamily="@font/opensans"
+                android:textSize="20sp"
+                android:textColor="#000000"
+                android:layout_marginTop="130dp"
+                android:layout_gravity="center_horizontal"/>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/cardLogout"
             android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="5dp"
-            app:cardBackgroundColor="#BBA3E4"
+            app:cardBackgroundColor="#BEAAE1"
             android:layout_margin="10dp">
             <ImageView
                 android:layout_width="100dp"
